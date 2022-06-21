@@ -1,0 +1,42 @@
+<p style="color: green"><%= notice %></p>
+
+
+<h1>Article</h1>
+<hr/>
+
+<%= render @article %>
+
+<hr/>
+<h1>Comments</h1>
+<hr/>
+
+<% @article.comments.each do |comment| %>
+  <p><%=comment.body%></p>
+  <em><%=comment.commenter%></em>
+  <hr/>
+<% end %>
+
+<h2>Add a comment:</h2>
+<%= form_with model: [ @article, @article.comments.build ] do |form| %>
+  <%#= hidden_field(:article_id, @article.id) %>
+  <%#= form.hidden_field :article_id, :value => @article.id %>
+  <p>
+    Commenter:<br>
+    <%= form.text_field :commenter %>
+  </p>
+  <p>
+    Body:<br>
+    <%= form.text_area :body %>
+  </p>
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+
+
+<div>
+  <%= link_to "Edit this article", edit_article_path(@article) %> |
+  <%= link_to "Back to articles", articles_path %>
+
+  <%= button_to "Destroy this article", @article, method: :delete %>
+</div>
